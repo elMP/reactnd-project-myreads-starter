@@ -1,9 +1,12 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+/* import * as BooksAPI from './BooksAPI' */
 import './App.css'
+import BookCase from './BookCase';
+import BookShelf from './BookShelf';
 
 class BooksApp extends React.Component {
   state = {
+    booksOnShelves : [],
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -12,6 +15,15 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false
   }
+
+/*   componentDidMount() {
+    BooksAPI.getAll().then((booksOnShelves) => {
+      console.log(booksOnShelves);
+      this.setState( {booksOnShelves} );
+      //console.log("state" + this.state.booksOnShelves.length);
+  })
+
+} */
 
   render() {
     return (
@@ -38,10 +50,14 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-          <div className="list-books">
+          <BookCase />
+/*           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
+            <BookShelf books={this.state.booksOnShelves.filter(book => book.shelf === 'currentlyReading')}/>
+            <BookShelf books={this.state.booksOnShelves.filter(book => book.shelf === 'wantToRead')}/>
+            <BookShelf books={this.state.booksOnShelves.filter(book => book.shelf === 'read')}/>
             <div className="list-books-content">
               <div>
                 <div className="bookshelf">
@@ -196,8 +212,11 @@ class BooksApp extends React.Component {
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
             </div>
-          </div>
+          </div> */
         )}
+            <div className="open-search">
+              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+            </div>
       </div>
     )
   }
