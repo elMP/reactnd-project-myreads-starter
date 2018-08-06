@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 
 class Book extends Component {
     shelfChanged = (event) => {
-        console.log(this.props.book, event.target.value);
+        //console.log(this.props.book, event.target.value);
+        this.props.updateShelf(this.props.book, event.target.value);
         //this.setState({selectedId: e.target.value});
     }
 

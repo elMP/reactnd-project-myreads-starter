@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import Book from './Book';
 
 class BookShelf extends Component {
+    updateShelf(book, shelf) {
+        //console.log(book, shelf);
+        this.props.updateShelf(book, shelf);
+    }
+
     render() {
         //console.log(this.props);
 
@@ -12,7 +17,8 @@ class BookShelf extends Component {
                 <ol className="books-grid">
                     {this.props.books.map((book)  => (
                         <li key={book.id}>
-                            <Book book={book} status={this.props.shelf.status}/>
+                            <Book book={book} status={this.props.shelf.status}
+                            updateShelf = {this.props.updateShelf}/>
                         </li>
                     ))}
                 </ol>

@@ -14,11 +14,22 @@ class BookCase extends Component {
 
     componentDidMount() {
         BooksAPI.getAll().then((booksOnShelves) => {
-            console.log(booksOnShelves);
+            //console.log(booksOnShelves);
             this.setState( {booksOnShelves} );
           //console.log("state" + this.state.booksOnShelves.length);
       })
     
+    }
+
+    updateShelf = (book, shelf) => {
+        //console.log(book, shelf);
+        BooksAPI.update(book, shelf)
+            .then(() => BooksAPI.getAll())
+            .then((booksOnShelves) => {
+                console.log(booksOnShelves);
+                this.setState({booksOnShelves: booksOnShelves});
+                console.log(booksOnShelves);
+            });
     }
 
     render() {
@@ -32,7 +43,8 @@ class BookCase extends Component {
                     <div>
                         {this.state.shelves.map((shelf)  => (
                             <BookShelf key={shelf.status} shelf={shelf}
-                                books={this.state.booksOnShelves.filter(book => book.shelf === shelf.status)}/>
+                                books={this.state.booksOnShelves.filter(book => book.shelf === shelf.status)}
+                                updateShelf = {this.updateShelf}/>
                         ))}
                     </div>
                 </div>
