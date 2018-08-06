@@ -17,7 +17,7 @@ class BookCase extends Component {
             //console.log(booksOnShelves);
             this.setState( {booksOnShelves} );
           //console.log("state" + this.state.booksOnShelves.length);
-      })
+        })
     
     }
 

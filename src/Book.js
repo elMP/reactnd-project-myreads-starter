@@ -2,17 +2,16 @@ import React, { Component } from 'react'
 
 class Book extends Component {
     shelfChanged = (event) => {
-        //console.log(this.props.book, event.target.value);
         this.props.updateShelf(this.props.book, event.target.value);
-        //this.setState({selectedId: e.target.value});
     }
 
     render() {
+        let image = this.props.book.imageLinks ? this.props.book.imageLinks.thumbnail : '';
         return (
             <div className="book">
                 <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, 
-                        backgroundImage: `url(${this.props.book.imageLinks.thumbnail})`
+                        backgroundImage: `url(${image})`
                         }}>
                     </div>
                     <div className="book-shelf-changer">
