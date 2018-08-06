@@ -35,6 +35,11 @@ class SearchBook extends Component {
             this.setState(state => ({ result: [] }));
     }
 
+    updateShelf(book, shelf) {
+        //console.log(book, shelf);
+        this.props.updateShelf(book, shelf);
+    }
+    
     render() {
         //console.log("result:", this.state.result, this.state.query);
         let books;
@@ -68,6 +73,7 @@ class SearchBook extends Component {
                     {books.map((book)  => (
                         <li key={book.id}>
                             <Book book={book} status="none"
+                            updateShelf = {this.props.updateShelf}
                             />
                         </li>
                     ))}

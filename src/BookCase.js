@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import * as BooksAPI from './BooksAPI'
 import BookShelf from './BookShelf';
 
 class BookCase extends Component {
@@ -8,28 +7,12 @@ class BookCase extends Component {
             {title: "Currently Reading", status: "currentlyReading"},
             {title: "Want to Read", status: "wantToRead"},
             {title: "Read", status: "read"}
-        ],
-        booksOnShelves : []
+        ]
     }
 
-    componentDidMount() {
-        BooksAPI.getAll().then((booksOnShelves) => {
-            //console.log(booksOnShelves);
-            this.setState( {booksOnShelves} );
-          //console.log("state" + this.state.booksOnShelves.length);
-        })
-    
-    }
-
-    updateShelf = (book, shelf) => {
+    updateShelf(book, shelf) {
         //console.log(book, shelf);
-        BooksAPI.update(book, shelf)
-            .then(() => BooksAPI.getAll())
-            .then((booksOnShelves) => {
-                console.log(booksOnShelves);
-                this.setState({booksOnShelves: booksOnShelves});
-                console.log(booksOnShelves);
-            });
+        this.props.updateShelf(book, shelf);
     }
 
     render() {
@@ -43,8 +26,8 @@ class BookCase extends Component {
                     <div>
                         {this.state.shelves.map((shelf)  => (
                             <BookShelf key={shelf.status} shelf={shelf}
-                                books={this.state.booksOnShelves.filter(book => book.shelf === shelf.status)}
-                                updateShelf = {this.updateShelf}/>
+                                books={this.props.booksOnShelves.filter(book => book.shelf === shelf.status)}
+                                updateShelf = {this.props.updateShelf}/>
                         ))}
                     </div>
                 </div>

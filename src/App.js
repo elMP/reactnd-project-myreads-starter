@@ -3,6 +3,7 @@ import { Route, Link } from 'react-router-dom'
 import './App.css'
 import BookCase from './BookCase';
 import SearchBook from './SearchBook';
+import * as BooksAPI from './BooksAPI'
 
 class BooksApp extends React.Component {
   state = {
@@ -16,12 +17,33 @@ class BooksApp extends React.Component {
     //showSearchPage: false
   }
 
+  componentDidMount() {
+    BooksAPI.getAll().then((booksOnShelves) => {
+        //console.log(booksOnShelves);
+        this.setState( {booksOnShelves} );
+      //console.log("state" + this.state.booksOnShelves.length);
+    })
+
+  }
+
+  updateShelf = (book, shelf) => {
+    //console.log(book, shelf);
+    BooksAPI.update(book, shelf)
+        .then(() => BooksAPI.getAll())
+        .then((booksOnShelves) => {
+            //console.log(booksOnShelves);
+            this.setState({booksOnShelves: booksOnShelves});
+            //console.log(booksOnShelves);
+        });
+  }
+
   render() {
     return (
       <div className="app">
         <Route exact path='/' render={() => (
           <div>
-            <BookCase />
+            <BookCase booksOnShelves = {this.state.booksOnShelves}
+              updateShelf = {this.updateShelf}/>
             <div className="open-search">
               <Link to="/search" title="Add a Book">
                 Add a book
@@ -30,7 +52,7 @@ class BooksApp extends React.Component {
           </div>
         )}/>
         <Route path='/search' render={({ history }) => (
-          <SearchBook />
+          <SearchBook updateShelf = {this.updateShelf}/>
         )}/>
       </div>
 
