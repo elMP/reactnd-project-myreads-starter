@@ -20,9 +20,7 @@ class SearchBook extends Component {
     }
 
     setSearchResult = (query) => {
-        //console.log("query", query);
         if (query) {
-            //console.log(query);
             BooksAPI.search(query).then((result) => {
                 if (result.error) {
                     this.setState(state => ({ result: [] }));
@@ -36,17 +34,22 @@ class SearchBook extends Component {
     }
 
     updateShelf(book, shelf) {
-        //console.log(book, shelf);
         this.props.updateShelf(book, shelf);
     }
     
     render() {
-        //console.log("result:", this.state.result, this.state.query);
+        console.log(this.props.booksInBookCase);
         let books;
         if (this.state.query)
             books = this.state.result;
         else
             books = [];
+        books.map( (book) => {
+            this.props.booksInBookCase.map( (bookOnShelf) => {
+                if (book.id == bookOnShelf.id)
+                    book.shelf = bookOnShelf.shelf;
+            })            
+        })
 
         return (
             <div className="search-books">
@@ -72,7 +75,7 @@ class SearchBook extends Component {
                 <ol className="books-grid">
                     {books.map((book)  => (
                         <li key={book.id}>
-                            <Book book={book} status="none"
+                            <Book book={book} status= {book.shelf ? book.shelf : "none"}
                             updateShelf = {this.props.updateShelf}
                             />
                         </li>
