@@ -11,12 +11,10 @@ class BookCase extends Component {
     }
 
     updateShelf(book, shelf) {
-        //console.log(book, shelf);
         this.props.updateShelf(book, shelf);
     }
 
     render() {
-        //console.log(this.props);
         return (
             <div className="list-books">
                 <div className="list-books-title">

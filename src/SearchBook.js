@@ -38,19 +38,17 @@ class SearchBook extends Component {
     }
     
     render() {
-        console.log(this.props.booksInBookCase);
         let books;
         if (this.state.query)
             books = this.state.result;
         else
             books = [];
-        books.map( (book) => {
-            this.props.booksInBookCase.map( (bookOnShelf) => {
-                if (book.id == bookOnShelf.id)
+        books.forEach( (book) => {
+            this.props.booksInBookCase.forEach( (bookOnShelf) => {
+                if (book.id === bookOnShelf.id)
                     book.shelf = bookOnShelf.shelf;
             })            
         })
-
         return (
             <div className="search-books">
             <div className="search-books-bar">
